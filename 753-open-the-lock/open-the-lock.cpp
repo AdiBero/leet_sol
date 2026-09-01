@@ -27,35 +27,39 @@ public:
             for(int i = 0; i < 4 ; i++){
                 char og = temp[i];
 
-               if(temp[i] == '9'){
+            if(temp[i] == '9'){
                 temp[i] = '0';
                }
-               else{
+
+            else{
+
                 temp[i] += 1;
-               }
-              if (deadend.find(temp) == deadend.end() && st.find(temp) == st.end()) {
+           
+            }
+
+            if (deadend.find(temp) == deadend.end() && st.find(temp) == st.end()) {
                 q.emplace(temp);
                 st.insert(temp);
-
-                temp[i] = og;
-                }
-                temp[i] = og;
+            }
+            temp[i] = og;
               
                
 
-             if (temp[i] == '0'){
+            if (temp[i] == '0'){
                 temp[i] = '9';
             }
+
             else{
+
             temp[i]--;
+
             }
+
               if (deadend.find(temp) == deadend.end() && st.find(temp) == st.end()) {
                 q.emplace(temp);
-                 st.insert(temp);
-
-
-                temp[i] = og;
+                st.insert(temp);
              }
+
              temp[i] = og;
            
                
