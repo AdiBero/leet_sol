@@ -37,7 +37,7 @@ public:
            
             }
 
-            if (deadend.find(temp) == deadend.end() && st.find(temp) == st.end()) {
+            if (!deadend.contains(temp) && !st.contains(temp)) {
                 q.emplace(temp);
                 st.insert(temp);
             }
@@ -55,7 +55,7 @@ public:
 
             }
 
-              if (deadend.find(temp) == deadend.end() && st.find(temp) == st.end()) {
+              if (!deadend.contains(temp) && !st.contains(temp)) {
                 q.emplace(temp);
                 st.insert(temp);
              }
