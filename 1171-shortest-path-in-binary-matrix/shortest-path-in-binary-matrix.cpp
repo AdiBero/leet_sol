@@ -1,11 +1,12 @@
 class Solution {
 public:
-            int count = 1;
+        int count = 1;
 
     int bfs(vector<vector<int>> &grid, queue<pair<int,int>>&q){
         int dr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
         int dc[] = {-1, 0, 1, -1, 1, -1, 0, 1};
-
+    int rr = grid.size();
+    int cc = grid[0].size();
         
     while(!q.empty()){
         
@@ -17,7 +18,7 @@ public:
             int row = temp.first;
             int col = temp.second;
             
-            if(row == grid.size() - 1 && col == grid[0].size() - 1){
+            if(row == rr - 1 && col == cc - 1){
                 return 0;
                 }
 
@@ -28,7 +29,7 @@ public:
         int newr = row + dr[i];
         int newc = col + dc[i];
 
-       if(newr >= 0 && newr < grid.size() && newc >= 0 && newc < grid[0].size() && grid[newr][newc] == 0){      
+       if(newr >= 0 && newr < rr && newc >= 0 && newc < cc && grid[newr][newc] == 0){      
             q.emplace(newr,newc);
             grid[newr][newc] = 1;
         }
