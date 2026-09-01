@@ -3,13 +3,14 @@ public:
     int bfs(vector<string>& deadends, string target,queue<string> &q){
         int count = 0;
 
-        unordered_set<string> st;
-        unordered_set<string> deadend(deadends.begin(), deadends.end());
-        st.insert("0000");
-        if(deadend.find("0000") != deadend.end()){
-            return -1;
-        }
+        unordered_set<string> st(deadends.begin(), deadends.end());
 
+        if (st.contains("0000"))
+            return -1;
+
+        st.insert("0000");
+          
+        
         while(!q.empty()){
              int n = q.size();
 
@@ -37,7 +38,7 @@ public:
            
             }
 
-            if (!deadend.contains(temp) && !st.contains(temp)) {
+            if (!st.contains(temp)) {
                 q.emplace(temp);
                 st.insert(temp);
             }
@@ -55,7 +56,7 @@ public:
 
             }
 
-              if (!deadend.contains(temp) && !st.contains(temp)) {
+              if (!st.contains(temp)) {
                 q.emplace(temp);
                 st.insert(temp);
              }
