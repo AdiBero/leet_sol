@@ -3,7 +3,6 @@ public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
         
         vector<vector<pair<int,int>>> flight(n);
-        int ans = INT_MAX;
         vector<vector<int>> dstt(k + 2, vector<int>(n, 1e9));
 
 
@@ -31,7 +30,7 @@ public:
             int edgeuse = get<2>(temp);
 
             if(too == dst){
-        ans = min(ans, price);            
+        return price;            
 }
 
              for(auto it : flight[too]) {
@@ -54,9 +53,8 @@ public:
         }
         
     }
-   if(ans == INT_MAX){
+ 
     return -1;
-   }
-   return ans;
     }
+   
 };
