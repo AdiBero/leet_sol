@@ -5,8 +5,7 @@ public:
         vector<vector<pair<int,int>>> flight(n);
         vector<vector<int>> dstt(k + 2, vector<int>(n, 1e9));
 
-
-        for( auto it : flights){
+         for( auto it : flights){
            flight[it[0]].emplace_back(it[1],it[2]);
 
         }
@@ -28,6 +27,8 @@ public:
             int too = get<1>(temp);
             int price = get<0>(temp);
             int edgeuse = get<2>(temp);
+            if(price > dstt[edgeuse][too])
+    continue;
 
             if(too == dst){
         return price;            
