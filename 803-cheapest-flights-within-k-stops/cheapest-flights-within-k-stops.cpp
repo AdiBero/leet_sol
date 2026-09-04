@@ -22,17 +22,17 @@ public:
 
             auto temp = pq.top();
           
-           pq.pop();
+            pq.pop();
 
             int too = get<1>(temp);
             int price = get<0>(temp);
             int edgeuse = get<2>(temp);
             if(price > dstt[edgeuse][too])
-    continue;
+                continue;
 
             if(too == dst){
-        return price;            
-}
+                return price;            
+            }
 
              for(auto it : flight[too]) {
 
@@ -48,14 +48,9 @@ public:
                             dstt[totaledges][toodst] = totalprice;
                         }
                     }
-               
-
-
-        }
-        
-    }
- 
-    return -1;
+            }
+            }
+        return -1;
     }
    
 };
