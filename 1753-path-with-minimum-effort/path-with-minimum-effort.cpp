@@ -8,7 +8,7 @@ public:
         vector<tuple<int,int,int>>,
         greater<tuple<int,int,int>> > pq; 
 
-        pq.push({0,0,0});  
+        pq.emplace(0,0,0);  
 
 vector<vector<int>> dist(rows, vector<int>(cols, 1e9));
         vector<int> r = {-1,0,1,0};
@@ -40,7 +40,7 @@ vector<vector<int>> dist(rows, vector<int>(cols, 1e9));
 
                 if(neweffort < dist[nr][nc]){
                     dist[nr][nc] = neweffort;
-                    pq.push({neweffort,nr,nc});
+                    pq.emplace(neweffort,nr,nc);
 
                 }
 
