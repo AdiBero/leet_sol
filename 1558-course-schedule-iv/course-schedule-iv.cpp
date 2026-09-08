@@ -17,8 +17,7 @@ public:
             }
         }
     }
-
-    vector<bool> checkIfPrerequisite(
+        vector<bool> checkIfPrerequisite(
         int numCourses,
         vector<vector<int>>& prerequisites,
         vector<vector<int>>& queries
@@ -26,7 +25,6 @@ public:
 
         int n = numCourses;
 
-        // CHANGE 1: make an actual adjacency list
         vector<vector<int>> adj(n);
 
         for (auto p : prerequisites) {
@@ -35,8 +33,6 @@ public:
 
         vector<vector<bool>> mat(n, vector<bool>(n, false));
         vector<bool> visited(n);
-
-        // Your DFS approach
         for (int start = 0; start < n; start++) {
             visited.assign(n, false);
             dfs(start, start, adj, visited, mat);
@@ -47,7 +43,6 @@ public:
         for (auto q : queries) {
             ans.push_back(mat[q[0]][q[1]]);
         }
-
         return ans;
     }
 };
