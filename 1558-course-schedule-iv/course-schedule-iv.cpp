@@ -1,41 +1,38 @@
 class Solution {
 public:
-    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+    vector<bool> checkIfPrerequisite(
+        int numCourses,
+        vector<vector<int>>& prerequisites,
+        vector<vector<int>>& queries
+    ) {
+        
+        int n = numCourses;
+        vector<vector<bool>> mat(n, vector<bool>(n, false));
 
-            int n = numCourses;
+        // Direct prerequisite relationships
+        for (auto p : prerequisites) {
+            mat[p[0]][p[1]] = true;
+        }
 
-             vector<vector<bool>> mat(n,vector<bool>(n,false));
+        // Find indirect relationships
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
 
-            for (auto p : prerequisites) {
-                mat[p[0]][p[1]] = true;
-            }
-
-
-            for(int o = 0; o < n; o++){
-                for(int i = 0; i < n; i++){
-                    for(int j = 0; j < n; j++){
-                        if(mat[i][j] == true){
-                            continue;
-                        }
-
-                        if(mat[i][o]==true && mat[o][j]==true){
-                            mat[i][j] = true;
-                        }
+                    if (mat[i][k] && mat[k][j]) {
+                        mat[i][j] = true;
                     }
                 }
             }
-            vector<bool> ans;
-            for(auto it: queries){
-                if(mat[it[0]][it[1]] == true){
-                    ans.emplace_back(true);
+        }
 
-                }
-                else{
-                    ans.emplace_back(false);
-                }
+        // Answer queries
+        vector<bool> ans;
 
-            }
-            return ans;
-        
+        for (auto q : queries) {
+            ans.push_back(mat[q[0]][q[1]]);
+        }
+
+        return ans;
     }
 };
