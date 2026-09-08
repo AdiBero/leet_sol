@@ -1,32 +1,47 @@
 class Solution {
 public:
+
+    void dfs(int start, int node,
+             vector<vector<int>>& adj,
+             vector<bool>& visited,
+             vector<vector<bool>>& mat) {
+
+        for (int neighbor : adj[node]) {
+
+            if (!visited[neighbor]) {
+
+                visited[neighbor] = true;
+                mat[start][neighbor] = true;
+
+                dfs(start, neighbor, adj, visited, mat);
+            }
+        }
+    }
+
     vector<bool> checkIfPrerequisite(
         int numCourses,
         vector<vector<int>>& prerequisites,
         vector<vector<int>>& queries
     ) {
-        
+
         int n = numCourses;
-        vector<vector<bool>> mat(n, vector<bool>(n, false));
 
-        // Direct prerequisite relationships
+        // CHANGE 1: make an actual adjacency list
+        vector<vector<int>> adj(n);
+
         for (auto p : prerequisites) {
-            mat[p[0]][p[1]] = true;
+            adj[p[0]].push_back(p[1]);
         }
 
-        // Find indirect relationships
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
+        vector<vector<bool>> mat(n, vector<bool>(n, false));
+        vector<bool> visited(n);
 
-                    if (mat[i][k] && mat[k][j]) {
-                        mat[i][j] = true;
-                    }
-                }
-            }
+        // Your DFS approach
+        for (int start = 0; start < n; start++) {
+            visited.assign(n, false);
+            dfs(start, start, adj, visited, mat);
         }
 
-        // Answer queries
         vector<bool> ans;
 
         for (auto q : queries) {
