@@ -2,7 +2,6 @@ class Solution {
 public:
 vector<int> size;
         vector<int> parent;
-
         int findp1(int x){
             if(x == parent[x]){
                 return x;
