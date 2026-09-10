@@ -85,47 +85,33 @@ vector<int> size;
             parent2[i] =i;
         }
 
+int count = 0;
+       // Type 3 first
+for(auto &it : edges) {
+    if(it[0] == 3) {
+        bool a = unionn1(it[1], it[2]);
+        bool b = unionn2(it[1], it[2]);
 
-        for(auto it: edges){
-            if(it[0] == 1){
-                t1.emplace_back(it[1],it[2]);
+        if(!a && !b)
+            count++;
+    }
+}
 
-            }
-             if(it[0] == 2){
-                t2.emplace_back(it[1],it[2]);
+// Type 1
+for(auto &it : edges) {
+    if(it[0] == 1) {
+        if(!unionn1(it[1], it[2]))
+            count++;
+    }
+}
 
-            }
-             if(it[0] == 3){
-                t3.emplace_back(it[1],it[2]);
-
-
-            }
-        }
-        int count = 0;
-         for(auto it : t3){
-            bool a = unionn1(it.first, it.second);
-            bool b = unionn2(it.first, it.second);
-
-            if(!a && !b){
-             count++;
-            }
-         }
-        
-    
-        for(auto it : t1){
-
-            if(unionn1(it.first,it.second) == false){
-                count++;
-                }
-        }
-         for(auto it : t2){
-
-            if(unionn2(it.first,it.second) == false){
-                count++;
-                }
-        }
-       
-
+// Type 2
+for(auto &it : edges) {
+    if(it[0] == 2) {
+        if(!unionn2(it[1], it[2]))
+            count++;
+    }
+}
 
         if(size[findp1(1)] != n || size2[findp2(1)] != n)
     return -1;
