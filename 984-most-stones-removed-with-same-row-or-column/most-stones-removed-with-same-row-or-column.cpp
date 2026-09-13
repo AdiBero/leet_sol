@@ -41,8 +41,7 @@ vector<int> size;
             parent[i] = i;
 
         }
-        int count = 0;
-        int remove = 0;
+      
         int suc = 0;
 
         for(int i = 0; i < n; i++){
