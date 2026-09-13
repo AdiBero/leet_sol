@@ -34,36 +34,39 @@ vector<int> size;
     int removeStones(vector<vector<int>>& stones) {
         int n = stones.size();
 
-        size.resize(n,1);
+        size.resize(n, 1);
         parent.resize(n);
 
-        for(int i = 0; i<n ; i++){
+        for(int i = 0; i < n; i++)
             parent[i] = i;
 
-        }
-      
+        unordered_map<int, int> row;
+        unordered_map<int, int> col;
+
         int suc = 0;
 
-        for(int i = 0; i < n; i++){
-    for(int j = i + 1; j < n; j++){
+        for(int i = 0; i < n; i++) {
 
-        if(stones[i][0] == stones[j][0] ||
-           stones[i][1] == stones[j][1]){
+            int r = stones[i][0];
+            int c = stones[i][1];
 
-            if(unionn1(i, j)){
-                suc++;
+            if(row.find(r) != row.end()) {
+                if(unionn1(i, row[r]))
+                    suc++;
+            }
+            else {
+                row[r] = i;
             }
 
-
-            
+            if(col.find(c) != col.end()) {
+                if(unionn1(i, col[c]))
+                    suc++;
+            }
+            else {
+                col[c] = i;
+            }
         }
 
-    }
-}
-
-
-return suc;
-
-        
+        return suc;
     }
 };
