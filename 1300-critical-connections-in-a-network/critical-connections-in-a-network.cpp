@@ -1,57 +1,61 @@
 class Solution {
 public:
-int count = 0;
-    void dfs(int node,int parent,vector<int> &tin,vector<int> &low,vector<vector<int>> &adj,vector<int> &visit, vector<vector<int>> &bridge){
-        visit[node] = 1;
+    int timer = 0;
+    vector<int> tin, low, vis;
+    vector<vector<int>> adj;
+    vector<vector<int>> bridges;
 
-        tin[node] = count;
-        low[node] = count;
-        count++;
+    void dfs(int node, int parent) {
 
+        vis[node] = 1;
+        tin[node] = low[node] = timer++;
 
-        for(auto it : adj[node]){
-            if(it == parent) continue;
+        for (int nei : adj[node]) {
 
-            if( visit[it] == 0){
-                dfs(it,node,tin,low,adj,visit,bridge);
-                low[node] = min(low[node],low[it]);
+            if (nei == parent)
+                continue;
 
-                if(low[it]>tin[node]){
-            bridge.push_back({it, node}); 
-                }                                   
+            if (!vis[nei]) {
 
+                dfs(nei, node);
 
-            }
-            else{
-    low[node] = min(low[node],tin[it]);
+                low[node] = min(low[node], low[nei]);
+
+                if (low[nei] > tin[node]) {
+                    bridges.push_back({node, nei});
+                }
+
+            } else {
+                low[node] = min(low[node], tin[nei]);
             }
         }
     }
-    
 
+    vector<vector<int>> criticalConnections(
+        int n,
+        vector<vector<int>>& connections) {
 
+        timer = 0;
 
-    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
-        vector<vector<int>> adj(n);
+        adj.assign(n, {});
+        tin.resize(n);
+        low.resize(n);
+        vis.assign(n, 0);
+        bridges.clear();
 
-        for(auto it: connections){
-            adj[it[0]].emplace_back(it[1]);
-            adj[it[1]].emplace_back(it[0]);
+        for (auto &edge : connections) {
+            int u = edge[0];
+            int v = edge[1];
+
+            adj[u].push_back(v);
+            adj[v].push_back(u);
         }
-        vector<int> visit(n,0);
-        vector<int> tin(n);
-        vector<int> low(n);
-        vector<vector<int>> bridge;
-        for(int i = 0; i < n; i++) {
-    if(!visit[i]) {
-        dfs(i, -1, tin, low, adj, visit, bridge);
-    }
-}
 
-        return bridge;
-        
+        for (int i = 0; i < n; i++) {
+            if (!vis[i])
+                dfs(i, -1);
+        }
 
-
-        
+        return bridges;
     }
 };
