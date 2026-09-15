@@ -22,7 +22,7 @@ public:
         unordered_map<int,int> out;
           
         for(auto p : pairs) {
-            adj[p[0]].push_back(p[1]);
+            adj[p[0]].emplace_back(p[1]);
 
             out[p[0]]++;
             in[p[1]]++;
