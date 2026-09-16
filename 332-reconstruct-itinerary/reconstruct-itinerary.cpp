@@ -8,13 +8,12 @@ public:
                 adj[node].pop();
                 dfs(str,adj,ans);
         } 
-            ans.push_back(node);
+            ans.emplace_back(node);
         
     }
 
 
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        int n = tickets.size();
 
         map<string, priority_queue<string, vector<string>, greater<string>>> adj; 
         unordered_map<string,int> in;
