@@ -9,8 +9,6 @@ public:
 
         int sr = start.first;
         int sc = start.second;
-
-
         while(!q.empty()) {
             int o = q.size();
             while(o--){
@@ -26,18 +24,14 @@ public:
             for(int i = 0; i < 4; i++) {
                 int nr = r + dr[i];
                 int nc = c + dc[i];
-
-            
             if(nr >= 0 && nr < m && nc >= 0 && nc < n){
             if(adj[nr][nc] == '.'){
                 q.emplace(nr,nc);
                 adj[nr][nc] = '+';
 
             }
-
-       
-           }
-           }
+            }
+        }
 
             }
             count++;
@@ -58,12 +52,4 @@ public:
              
             }
 
-            
-
-
-
-
-        
-        
-    
-};
+    };
