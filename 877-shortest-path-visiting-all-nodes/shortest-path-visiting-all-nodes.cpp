@@ -6,7 +6,7 @@ public:
 
         while(!q.empty()){
             int o = q.size();
-            count++;
+            
             while(o--){
                 auto temp = q.front();
                 q.pop();
@@ -31,6 +31,7 @@ public:
 
 
             }
+            count++;
             
         }
         return -1;
@@ -46,8 +47,9 @@ public:
 
        for(int i = 0; i < n ; i++){
         q.emplace(i,1<<i);
+        st.insert({i,1<<i});
        }
-       return bfs(graph,q,st,n) - 1;
+       return bfs(graph,q,st,n);
         
     }
 };
