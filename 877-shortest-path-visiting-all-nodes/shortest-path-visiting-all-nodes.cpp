@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int bfs(vector<vector<int>>& graph,queue<pair<int,int>> &q,set<pair<int,int>> &st, int n){
+    int bfs(vector<vector<int>>& graph,queue<pair<int,int>> &q,vector<vector<bool>> &visited, int n){
         int count = 0;
         int endstate = (1 << n) - 1;
 
@@ -22,8 +22,8 @@ public:
 
                     int nextmask = curmask | (1 << it);
                     
-                    if(st.find({it,nextmask}) == st.end()){
-                        st.insert({it,nextmask});
+                    if(!visited[it][nextmask]){
+                        visited[it][nextmask] = true;
                         q.emplace(it,nextmask);
                     }
 
@@ -43,13 +43,12 @@ public:
         return 0;
        }
        queue<pair<int,int>> q;
-       set<pair<int,int>> st;
-
+        vector<vector<bool>> visited(n, vector<bool>(1 << n, false));
        for(int i = 0; i < n ; i++){
         q.emplace(i,1<<i);
-        st.insert({i,1<<i});
+        visited[i][1<<i] = true;
        }
-       return bfs(graph,q,st,n);
+       return bfs(graph,q,visited,n);
         
     }
 };
