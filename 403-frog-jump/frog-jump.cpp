@@ -1,45 +1,63 @@
 class Solution {
 public:
-    unordered_map<int, unordered_map<int, bool>> memo;
-    bool dfs(int jump, int prev,vector<int>& stones,unordered_set<int> &st){
-        if(prev == stones.back()){
+    vector<vector<int>> memo;
+
+    bool dfs(int jump, int idx, vector<int>& stones,
+             unordered_map<int,int>& pos) {
+
+        if (idx == stones.size() - 1)
             return true;
-        }
-        if (prev == 0 && jump == 0) {
-            if (st.find(1) != st.end()) {
-                return dfs(1, 1, stones, st);
+
+        if (memo[idx][jump] != -1)
+            return memo[idx][jump];
+
+        bool ans = false;
+
+        // jump - 1
+        if (jump - 1 > 0) {
+            int nextPos = stones[idx] + jump - 1;
+
+            if (pos.count(nextPos)) {
+                int nextIdx = pos[nextPos];
+                ans |= dfs(jump - 1, nextIdx, stones, pos);
             }
-            return false;
         }
-         if (memo[prev].find(jump) != memo[prev].end()) {
-            return memo[prev][jump];
-        }
-            
 
-        bool a = false;
-        bool b = false;
-        bool c = false;
+        // jump
+        {
+            int nextPos = stones[idx] + jump;
 
-        if((st.find(prev + jump+1) != st.end())){
-            a = dfs(jump+1,prev + (jump+1), stones ,st);
-    
+            if (pos.count(nextPos)) {
+                int nextIdx = pos[nextPos];
+                ans |= dfs(jump, nextIdx, stones, pos);
+            }
         }
-        if((st.find(prev + jump) != st.end())){
-            b= dfs(jump , prev + (jump), stones ,st);
+
+        // jump + 1
+        {
+            int nextPos = stones[idx] + jump + 1;
+
+            if (pos.count(nextPos)) {
+                int nextIdx = pos[nextPos];
+                ans |= dfs(jump + 1, nextIdx, stones, pos);
+            }
         }
-        if(jump - 1 > 0 && (st.find(prev + jump-1) != st.end())){
-            c = dfs(jump-1,prev + (jump-1), stones ,st);
-        }
-        return memo[prev][jump] = (a || b || c);
+
+        return memo[idx][jump] = ans;
     }
+
     bool canCross(vector<int>& stones) {
-                memo.clear();
+        int n = stones.size();
 
-        unordered_set<int> stone;
-        for(int i = 0; i<stones.size();i++){
-            stone.insert(stones[i]);
-        }
+        unordered_map<int,int> pos;
+        for (int i = 0; i < n; i++)
+            pos[stones[i]] = i;
 
-        return dfs(0,0,stones,stone);
+        memo.assign(n, vector<int>(n + 1, -1));
+
+        if (stones[1] != 1)
+            return false;
+
+        return dfs(1, 1, stones, pos);
     }
 };
