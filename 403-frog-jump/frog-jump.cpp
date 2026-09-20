@@ -33,6 +33,8 @@ public:
         return memo[prev][jump] = (a || b || c);
     }
     bool canCross(vector<int>& stones) {
+                memo.clear();
+
         unordered_set<int> stone;
         for(int i = 0; i<stones.size();i++){
             stone.insert(stones[i]);
