@@ -6,9 +6,7 @@ int rec(int row, int col,vector< vector<int>>& grid,vector<vector<int>> &dp){
         
         if(row >= m || col >= n)
         return 1e9;
-       
-        
-        if(row == m -1 && col == n-1){
+         if(row == m -1 && col == n-1){
             
             return grid[m-1][n-1];
         }
