@@ -15,12 +15,13 @@ public:
             return grid[row][col1] + grid[row][col2];
         }
         int maxx = INT_MIN;
-        vector<int> a = {-1,0,1};
-        for(int i = 0; i < 3 ; i++){
-            for(int j = 0; j < 3 ;j++){
-                maxx = max(maxx, dfs(row+1, col1 + a[i], col2 + a[j], grid, dp));
-            }
-        }
+        for(int d1 = -1; d1 <= 1; d1++){
+    for(int d2 = -1; d2 <= 1; d2++){
+        maxx = max(maxx,
+            dfs(row+1, col1+d1, col2+d2, grid, dp)
+        );
+    }
+}
         int cherries = grid[row][col1];
 
         if(col1 != col2)
