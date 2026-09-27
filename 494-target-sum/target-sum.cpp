@@ -8,11 +8,14 @@ int sum = 0;
         for(auto it: nums){
             sum += it;
         }
-        vector<vector<int>> dp(n+1,vector<int>(2 *sum + 1,0));
-        dp[n][sum] = 1;
+        vector<int> next(2*sum+1, 0);
+        vector<int> cur(2*sum+1, 0);
+
+        next[sum] = 1;
         if(target < -sum || target > sum)
     return 0;
-    for (int i = n - 1; i >= 0; i--) {       // which number?
+    for (int i = n - 1; i >= 0; i--) {   
+            fill(cur.begin(), cur.end(), 0);
          for (int j = 0; j <= 2 * sum; j++) { // which target?
 
         int target = j - sum;
@@ -22,15 +25,16 @@ int sum = 0;
 
         if (target - nums[i] >= -sum &&
             target - nums[i] <= sum)
-            pick = dp[i+1][target - nums[i] + sum];
+            pick = next[target - nums[i] + sum];
 
         if (target + nums[i] >= -sum &&
             target + nums[i] <= sum)
-            nopick = dp[i+1][target + nums[i] + sum];
+            nopick = next[target + nums[i] + sum];
 
-        dp[i][j] = pick + nopick;
+        cur[j] = pick + nopick;
     }
+    next = cur;
 }
-return dp[0][target + sum];
+return next[target + sum];
     }
 };
