@@ -8,9 +8,7 @@ public:
         
 
         for (int i = o-1; i >= 0; i--) {
-            for (int zeros = 0; zeros <= m; zeros++) {
-                for (int ones = 0; ones <= n; ones++) {
-                      int curzeros = 0;
+             int curzeros = 0;
                      int curones = 0;
 
                      for(char c : strs[i]){
@@ -18,6 +16,9 @@ public:
                         else curones++;
                     }
         
+            for (int zeros = 0; zeros <= m; zeros++) {
+                for (int ones = 0; ones <= n; ones++) {
+                     
        
                     int pick = 0;
 
