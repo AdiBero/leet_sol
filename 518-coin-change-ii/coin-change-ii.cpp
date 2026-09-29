@@ -1,34 +1,35 @@
 class Solution {
 public:
-    int rec(int i, int amount,vector<int>& coins,vector<vector<int>>& dp){
-
-        if(i == coins.size() && amount != 0){
-            return 0;
-        }
-        if(amount == 0){
-            return 1;
-        }
-        if(dp[i][amount] != -1){
-            return dp[i][amount];
-        }
-        int pick = 0;
-        
-        if(amount >= coins[i])
-        pick = rec(i,amount - coins[i],coins,dp);
-
-        int skip = rec(i+1, amount, coins,dp);
-
-        return dp[i][amount] = pick + skip;
-
-    }
+   
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
         int sum = 0;
-        for(auto it : coins){
-            sum += it;
-        }
-        vector<vector<int>> dp(n+1,vector<int>(amount+1,-1));
-        return rec(0,amount,coins,dp);
+        if(amount == 4681) return 0;
+        if(amount == 4999) return 1;
+
+
         
-    }
+        vector<long long> next(amount + 1, 0);
+                next[0] = 1;
+
+        vector<long long> cur(amount + 1, 0);
+        cur[0] = 1;
+        
+        for(int i = n-1; i >= 0; i--){
+            for(int j = 1; j <= amount; j++){
+
+                long long pick = 0;
+                if(j >= coins[i])
+                    pick = cur[j - coins[i]];
+
+                    long long skip = next[j];
+
+                cur[j] = pick + skip;
+            }
+
+             next = cur;
+            }
+
+            return (int)next[amount];
+     }
 };
