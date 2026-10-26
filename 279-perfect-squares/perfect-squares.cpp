@@ -1,7 +1,6 @@
 class Solution {
 public:
     int numSquares(int n) {
-        int i = 0;
        
         int limit = sqrt(n);
         vector<vector<int>> dp(n+1,vector<int>(limit+1,-1));
@@ -20,9 +19,9 @@ public:
         }
         
             int pick = 1e9;
-            if(i*i <= n){
+     
              pick = 1 + rec(n - i*i,i,dp);
-            }
+            
 
             int skip = rec(n,i+1,dp);
 
