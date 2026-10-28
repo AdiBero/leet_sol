@@ -3,7 +3,7 @@ public:
     int minDistance(string word1, string word2) {
         int n  = word1.size();
         int m  = word2.size();
-        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        vector<vector<int>>dp(n,vector<int>(m,-1));
         int a = rec(word1,word2,n-1,m-1,dp);
 
         int newn = n - a;
